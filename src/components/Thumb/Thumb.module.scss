@@ -1,0 +1,58 @@
+.thumb {
+  height: 500px;
+  width: 350px;
+  flex-shrink: 0;
+  background-color: rgba($color: #000000, $alpha: 0.1);
+  position: relative;
+
+  &:hover {
+    .favorite,
+    .overlay {
+      display: flex;
+    }
+  }
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.favorite {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-40px, -40px);
+  z-index: 2;
+  display: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
+  svg {
+    transition: all 0.1s ease-in-out;
+  }
+
+  &:hover svg {
+    transform: scale(1.1);
+  }
+
+  &:active svg {
+    transform: scale(0.9);
+  }
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: #000000;
+  opacity: 0.25;
+  z-index: 1;
+  display: none;
+  pointer-events: none;
+}

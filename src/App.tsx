@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Layout from "components/Layout";
+import Modal from "components/Modal";
+import DogPage from "pages/DogPage";
+import Favorites from "pages/Favorites";
+import Home from "pages/Home";
+import NotFound from "pages/NotFound";
+import { Route, Routes, useLocation } from "react-router-dom";
 
-function App() {
+const App = () => {
+  const location = useLocation();
+  const state = location.state as { backgroundLocation?: Location };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes location={state?.backgroundLocation ?? location}>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/d/:id" element={<DogPage />} />
+          <Route path="/*" element={<NotFound />} />
+        </Route>
+      </Routes>
+      {state?.backgroundLocation && (
+        <Routes>
+          <Route path="/d/:id" element={<Modal />} />
+        </Routes>
+      )}
+    </>
   );
-}
+};
 
 export default App;
